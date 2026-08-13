@@ -1,5 +1,5 @@
 // Chip Sequence - minimal offline cache service worker
-var CACHE_NAME = "chip-sequence-v3";
+var CACHE_NAME = "chip-sequence-v4";
 var ASSETS = [
   "./",
   "./index.html",
