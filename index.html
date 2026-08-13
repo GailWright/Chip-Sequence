@@ -169,8 +169,20 @@
     color:var(--ink);
     font-size:1.3rem;
   }
-  .cell .rank{font-weight:700;line-height:1;font-size:1.05em;}
-  .cell .suit{font-size:1.15em;line-height:1;}
+  .cell .corner{
+    position:absolute;
+    top:2px;
+    left:3px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    line-height:0.95;
+    font-weight:700;
+    z-index:2;
+    text-shadow:0 0 3px rgba(255,255,255,0.9), 0 0 3px rgba(255,255,255,0.9);
+  }
+  .cell .corner .rank{font-size:0.78em;}
+  .cell .corner .suit{font-size:0.85em;}
   .cell.red-suit{color:var(--red-chip-dark);}
   .cell.black-suit{color:#111;}
   .cell.highlight{
@@ -184,8 +196,12 @@
   }
   .chip{
     position:absolute;
-    inset:10%;
+    top:30%;
+    left:30%;
+    right:10%;
+    bottom:10%;
     border-radius:50%;
+    z-index:1;
     box-shadow:0 2px 4px rgba(0,0,0,0.5), inset 0 -3px 4px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.3);
   }
   .chip.p1{background:radial-gradient(circle at 35% 30%, #ea8b83, var(--red-chip) 55%, var(--red-chip-dark));}
@@ -385,15 +401,12 @@
     return arr;
   }
 
+  // Fixed board pattern -- every new game deals the same printed layout
+  // (like a real physical board), rather than reshuffling card positions.
+  var FIXED_BOARD_LAYOUT = ["3C","9D","10H","QD","AS","KC","2C","KS","9H","10S","7H","QH","4C","4S","AD","8C","AC","7H","2S","2D","4D","AS","5D","9D","10S","9C","2H","9S","7C","8C","7S","4C","2H","QD","5S","8S","2S","7C","4D","3H","KD","7D","8D","3H","6D","QC","10C","AC","QC","8S","3C","5C","10C","10H","6S","6H","AH","QS","AD","8D","6H","6C","10D","KD","10D","9C","5C","7S","5H","QS","6S","6D","3S","KH","AH","5D","KH","2D","QH","7D","9S","9H","4H","KC","8H","6C","5S","3D","3S","4H","KS","2C","3D","4S","5H","8H"];
+
   function buildBoardCards(){
-    var codes=[];
-    for(var s=0;s<SUITS.length;s++){
-      for(var r=0;r<RANKS.length;r++){
-        codes.push(RANKS[r]+SUITS[s]);
-        codes.push(RANKS[r]+SUITS[s]);
-      }
-    }
-    return shuffle(codes);
+    return FIXED_BOARD_LAYOUT.slice();
   }
 
   function buildDrawDeck(){
@@ -702,14 +715,17 @@
       } else {
         var isRed = RED_SUITS[cell.suit];
         div.classList.add(isRed ? "red-suit" : "black-suit");
+        var corner = document.createElement("div");
+        corner.className = "corner";
         var rankSpan = document.createElement("div");
         rankSpan.className="rank";
         rankSpan.textContent = cell.rank;
         var suitSpan = document.createElement("div");
         suitSpan.className="suit";
         suitSpan.textContent = SUIT_SYMBOL[cell.suit];
-        div.appendChild(rankSpan);
-        div.appendChild(suitSpan);
+        corner.appendChild(rankSpan);
+        corner.appendChild(suitSpan);
+        div.appendChild(corner);
         if(cell.owner){
           var chip = document.createElement("div");
           chip.className = "chip p"+cell.owner + (cell.locked ? " locked" : "");
