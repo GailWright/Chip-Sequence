@@ -110,7 +110,7 @@
   }
   #startBtn:hover{background:var(--gold-bright);}
 
-  #game{display:none;flex-direction:column;align-items:center;width:100%;max-width:640px;}
+  #game{display:none;flex-direction:column;align-items:center;width:100%;max-width:820px;}
 
   #statusBar{
     display:flex;
@@ -159,7 +159,7 @@
     align-items:center;
     justify-content:center;
     cursor:default;
-    font-size:0.85rem;
+    font-size:0.98rem;
     color:var(--ink);
     user-select:none;
     overflow:hidden;
@@ -167,7 +167,7 @@
   .cell.free{
     background:radial-gradient(circle, var(--gold-bright), var(--gold) 70%);
     color:var(--ink);
-    font-size:1.3rem;
+    font-size:1.45rem;
   }
   .cell .corner{
     position:absolute;
@@ -179,10 +179,10 @@
     line-height:0.95;
     font-weight:700;
     z-index:2;
-    text-shadow:0 0 3px rgba(255,255,255,0.9), 0 0 3px rgba(255,255,255,0.9);
+    text-shadow:0 0 3px rgba(255,255,255,0.95), 0 0 3px rgba(255,255,255,0.95), 0 0 5px rgba(255,255,255,0.7);
   }
-  .cell .corner .rank{font-size:0.78em;}
-  .cell .corner .suit{font-size:0.85em;}
+  .cell .corner .rank{font-size:0.82em;}
+  .cell .corner .suit{font-size:0.92em;}
   .cell.red-suit{color:var(--red-chip-dark);}
   .cell.black-suit{color:#111;}
   .cell.highlight{
@@ -308,9 +308,19 @@
     .hcard{width:54px;height:80px;margin-left:-16px;}
     .hcard .rank{font-size:1.1rem;}
     .hcard .suit{font-size:1.3rem;}
-    .cell{font-size:0.68rem;}
-    .cell.free{font-size:1.05rem;}
+    .cell{font-size:0.82rem;}
+    .cell.free{font-size:1.2rem;}
     h1{font-size:1.5rem;}
+  }
+
+  @media (min-width:760px){
+    #board{max-width:820px;}
+    #handArea, #installNote, #statusBar{max-width:820px;}
+    .cell{font-size:1.25rem;}
+    .cell.free{font-size:1.85rem;}
+    .hcard{width:76px;height:110px;margin-left:-22px;}
+    .hcard .rank{font-size:1.6rem;}
+    .hcard .suit{font-size:1.8rem;}
   }
 </style>
 </head>
